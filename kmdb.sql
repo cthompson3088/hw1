@@ -115,7 +115,7 @@
 
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS actors;
-DROP TABLE IF EXISTS top_cast;
+DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS studios;
 
 -- Create new tables, according to your domain model
@@ -126,28 +126,72 @@ CREATE TABLE movies (
   movie_name TEXT,
   year TEXT,
   MPAA TEXT,
-  studio_id TEXT,
-  top_cast_id TEXT
+  studio_id INTEGER
 );
 
 
 CREATE TABLE actors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  movie_name TEXT,
-  top_cast_id TEXT
+  actor_name TEXT
 );
 
-CREATE TABLE top_cast (
+CREATE TABLE characters (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  actor_name TEXT,
   character_name TEXT,
-  movie_name TEXT
+  actor_id INTEGER,
+  movie_id INTEGER
 );
 
+CREATE TABLE studios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  studio_name TEXT
+);
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+
+INSERT INTO movies (movie_name, year, MPAA, studio_id) VALUES
+('Batman Begins', 2005, 'PG-13', 1),
+('The Dark Knight', 2008, 'PG-13', 1),
+('The Dark Knight Rises', 2012, 'PG-13', 1);
+
+INSERT INTO studios (studio_name) VALUES
+('Warner Bros');
+
+INSERT INTO actos (actor_name) VALUES
+('Christian Bale'),
+('Michael Caine'),
+('Liam Neeson'),
+('Katie Holmes'),
+('Gary Oldman'),
+('Christian Bale'),
+('Heath Ledger'),
+('Aaron Eckhart'),
+('Michael Caine'),
+('Maggie Gyllenhaal'),
+('Christian Bale'),
+('Gary Oldman'),
+('Tom Hardy'),
+('Joseph Gordon-Levitt'),
+('Anne Hathaway');
+
+INSERT INTO characters (character_name, actor_id, movie_id) VALUES
+('Bruce Wayne', 1, 1),
+('Alfred', 2, 1),
+('Ras Al Ghul', 3, 1),
+('Rachel Dawes', 4, 1),
+('Commissioner Gordon', 5, 1),
+('Bruce Wayne', 6, 2),
+('Joker', 7, 2),
+('Harvey Dent', 8, 2),
+('Alfred', 9, 2),
+('Rachel Dawes', 10, 2),
+('Bruce Wayne', 11, 3),
+('Commissioner Gordon', 12, 3),
+('Bane', 13, 3),
+('John Blake', 14, 3),
+('Selina Kyle', 15, 3);
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -156,6 +200,9 @@ CREATE TABLE top_cast (
 
 -- The SQL statement for the movies output
 -- TODO!
+
+SELECT * FROM movies;
+
 
 -- Prints a header for the cast output
 .print ""
