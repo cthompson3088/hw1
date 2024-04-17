@@ -159,19 +159,15 @@ INSERT INTO movies (movie_name, year, MPAA, studio_id) VALUES
 INSERT INTO studios (studio_name) VALUES
 ('Warner Bros');
 
-INSERT INTO actos (actor_name) VALUES
+INSERT INTO actors (actor_name) VALUES
 ('Christian Bale'),
 ('Michael Caine'),
 ('Liam Neeson'),
 ('Katie Holmes'),
 ('Gary Oldman'),
-('Christian Bale'),
 ('Heath Ledger'),
 ('Aaron Eckhart'),
-('Michael Caine'),
 ('Maggie Gyllenhaal'),
-('Christian Bale'),
-('Gary Oldman'),
 ('Tom Hardy'),
 ('Joseph Gordon-Levitt'),
 ('Anne Hathaway');
@@ -182,16 +178,16 @@ INSERT INTO characters (character_name, actor_id, movie_id) VALUES
 ('Ras Al Ghul', 3, 1),
 ('Rachel Dawes', 4, 1),
 ('Commissioner Gordon', 5, 1),
-('Bruce Wayne', 6, 2),
-('Joker', 7, 2),
-('Harvey Dent', 8, 2),
-('Alfred', 9, 2),
-('Rachel Dawes', 10, 2),
-('Bruce Wayne', 11, 3),
-('Commissioner Gordon', 12, 3),
-('Bane', 13, 3),
-('John Blake', 14, 3),
-('Selina Kyle', 15, 3);
+('Bruce Wayne', 1, 2),
+('Joker', 6, 2),
+('Harvey Dent', 7, 2),
+('Alfred', 2, 2),
+('Rachel Dawes', 8, 2),
+('Bruce Wayne', 1, 3),
+('Commissioner Gordon', 5, 3),
+('Bane', 9, 3),
+('John Blake', 10, 3),
+('Selina Kyle', 11, 3);
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -201,7 +197,9 @@ INSERT INTO characters (character_name, actor_id, movie_id) VALUES
 -- The SQL statement for the movies output
 -- TODO!
 
-SELECT * FROM movies;
+SELECT movies.movie_name, movies.year, movies.MPAA, studios.studio_name
+FROM studios INNER JOIN movies ON movies.studio_id = studios.id;
+
 
 
 -- Prints a header for the cast output
@@ -213,3 +211,8 @@ SELECT * FROM movies;
 
 -- The SQL statement for the cast output
 -- TODO!
+
+SELECT movies.movie_name, actors.actor_name, characters.character_name
+FROM characters 
+    INNER JOIN movies ON movies.id = characters.movie_id
+    INNER JOIN actors ON actors.id = characters.actor_id;
